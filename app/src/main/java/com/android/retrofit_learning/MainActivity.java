@@ -19,7 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView text;
+    private TextView text, answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         String type="multiple", difficulty="easy", category="9";
-        int amount=1;
+        int amount=3;
         text=findViewById(R.id.text);
+        answer = findViewById(R.id.answer);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://opentdb.com")
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
                 if(response.body() != null
                         && response.body().getResults() != null
                         && !response.body().getResults().isEmpty()){
-                text.setText(response.body().getResults().get(0).question);}
+                text.setText(response.body().getResults().get(0).question);
+                answer.setText(response.body().getResults().get(0).correct_answer);}
                 else{
                     text.setText("error");
                 }
@@ -60,5 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 text.setText(t.getMessage());
             }
         });
+
+
+
     }
 }
