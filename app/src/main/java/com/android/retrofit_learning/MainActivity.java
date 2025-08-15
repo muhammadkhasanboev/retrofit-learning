@@ -21,17 +21,9 @@ import retrofit2.http.Path;
 public class MainActivity extends AppCompatActivity {
     private TextView text;
 
-    interface singleUser{
-        @GET("api/users/{uid}")
-        Call<DataClass> getUser(@Path("uid") String uid);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -40,19 +32,27 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        String type="multiple", difficulty="easy", category="9";
+        int amount=1;
         text=findViewById(R.id.text);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://reqres.in")
+                .baseUrl("https://opentdb.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         singleUser single_user = retrofit.create(singleUser.class);
-        single_user.getUser("2").enqueue(new Callback<DataClass>() {
+        single_user.getUser(type, difficulty, category, amount).enqueue(new Callback<DataClass>() {
             @Override
             public void onResponse(Call<DataClass> call, @NonNull Response<DataClass> response) {
                 assert response.body() != null;
-                text.setText(response.body().data.first_name);
+                if(response.body() != null
+                        && response.body().getResults() != null
+                        && !response.body().getResults().isEmpty()){
+                text.setText(response.body().getResults().get(0).question);}
+                else{
+                    text.setText("error");
+                }
             }
 
             @Override

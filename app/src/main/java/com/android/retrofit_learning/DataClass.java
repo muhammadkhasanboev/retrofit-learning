@@ -1,86 +1,35 @@
 package com.android.retrofit_learning;
 
+import java.util.List;
+
 public class DataClass {
-    Data data;
-    Support support;
+    List<ResultsClass> results;
 
-    public Support getSupport() {
-        return support;
+    public List<ResultsClass> getResults() {
+        return results;
     }
 
-    public void setSupport(Support support) {
-        this.support = support;
+    public void setResults(List<ResultsClass> results) {
+        this.results = results;
     }
+}
 
-    public Data getData() {
-        return data;
-    }
+ class ResultsClass {
+    String type, difficulty, question, correct_answer;
+    String category; // category is a string in JSON, not int
 
-    public void setData(Data data) {
-        this.data = data;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    class Data{
-        String id, email, first_name, last_name, avatar;
+    public String getDifficulty() { return difficulty; }
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 
-        public String getEmail() {
-            return email;
-        }
+    public String getQuestion() { return question; }
+    public void setQuestion(String question) { this.question = question; }
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
+    public String getCorrect_answer() { return correct_answer; }
+    public void setCorrect_answer(String correct_answer) { this.correct_answer = correct_answer; }
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getFirst_name() {
-            return first_name;
-        }
-
-        public void setFirst_name(String first_name) {
-            this.first_name = first_name;
-        }
-
-        public String getLast_name() {
-            return last_name;
-        }
-
-        public void setLast_name(String last_name) {
-            this.last_name = last_name;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-    }
-
-    class Support{
-        String url, text;
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 }
