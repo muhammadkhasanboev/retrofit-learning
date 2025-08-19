@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.text);
         answer = findViewById(R.id.answer);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://opentdb.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
 
 
 
