@@ -19,7 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
-
+    private TextView text, answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        text = findViewById(R.id.text);
+        answer = findViewById(R.id.answer);
 
 
 
