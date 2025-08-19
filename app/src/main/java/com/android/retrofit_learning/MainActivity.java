@@ -19,7 +19,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView text, answer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,37 +30,6 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-
-        String type="multiple", difficulty="easy", category="9";
-        int amount=3;
-        text=findViewById(R.id.text);
-        answer = findViewById(R.id.answer);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://opentdb.com")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        singleUser single_user = retrofit.create(singleUser.class);
-        single_user.getUser(type, difficulty, category, amount).enqueue(new Callback<DataClass>() {
-            @Override
-            public void onResponse(Call<DataClass> call, @NonNull Response<DataClass> response) {
-                assert response.body() != null;
-                if(response.body() != null
-                        && response.body().getResults() != null
-                        && !response.body().getResults().isEmpty()){
-                text.setText(response.body().getResults().get(0).question);
-                answer.setText(response.body().getResults().get(0).correct_answer);}
-                else{
-                    text.setText("error");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataClass> call, Throwable t) {
-                text.setText(t.getMessage());
-            }
         });
 
 
