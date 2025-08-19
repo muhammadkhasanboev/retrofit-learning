@@ -40,6 +40,22 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        String category = "9", difficulty="easy", type="multiple";
+        int amount = 1;
+
+        ApiInterface quiz = retrofit.create(ApiInterface.class);
+        quiz.getResponse(amount,category,difficulty,type).enqueue(new Callback<DataClass>() {
+            @Override
+            public void onResponse(Call<DataClass> call, Response<DataClass> response) {
+                text.setText(response.body().getResults().get(0).question);
+                answer.setText(response.body().getResults().get(0).correct_answer);
+            }
+
+            @Override
+            public void onFailure(Call<DataClass> call, Throwable t) {
+                text.setText("Error");
+            }
+        });
 
 
 
